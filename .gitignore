@@ -1,0 +1,8 @@
+# Dependencies (if you add any)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep image-data.js (embedded images) in the repo for Cloudflare

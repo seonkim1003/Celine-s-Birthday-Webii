@@ -65,3 +65,13 @@ window.BIRTHDAY_CONFIG = {
     ]
   }
 };
+
+(function () {
+  var im = window.BIRTHDAY_IMAGES;
+  if (!im) return;
+  if (im.portrait) window.BIRTHDAY_CONFIG.intro.portraitUrl = im.portrait;
+  if (im.scene1) window.BIRTHDAY_CONFIG.phases[0].imageUrl = im.scene1;
+  if (im.scene2) window.BIRTHDAY_CONFIG.phases[1].imageUrl = im.scene2;
+  if (im.scene3) window.BIRTHDAY_CONFIG.phases[2].imageUrl = im.scene3;
+  if (im.gallery1) window.BIRTHDAY_CONFIG.conclusion.galleryImages = [ im.gallery1, im.gallery2, im.gallery3, im.gallery4, im.gallery5, im.gallery6, im.gallery7, im.gallery8 ];
+})();
