@@ -345,11 +345,11 @@
       var panelW = w - 16;
       var panelH = h - 12;
 
-      // Fixed layout zones (tap bar space always reserved for stable layout)
-      var tapBarH   = 26;
-      var noteH     = 42;
+      var isSmall = h < 480;
+      var tapBarH = isSmall ? 20 : 26;
+      var noteH   = isSmall ? 32 : 42;
       var noteTopY  = panelY + panelH - tapBarH - noteH;
-      var bodyTopY  = panelY + 33;
+      var bodyTopY  = panelY + (isSmall ? 36 : 42);
       var bodyH     = noteTopY - bodyTopY - 4;
 
       ctx.save();
@@ -379,8 +379,10 @@
       ctx.fillRect(panelX + 10, panelY + 31, panelW - 20, 1);
       ctx.globalAlpha = alpha * panelT;
 
-      // ── Photo (right column, 40% of panel width) ──────────────────────
-      var photoW = Math.min(Math.floor(panelW * 0.40), 240);
+      // ── Photo (right column; smaller on narrow/short screens so text fits) ──
+      var photoPct = isSmall ? 0.28 : 0.40;
+      var photoMax = isSmall ? 100 : 240;
+      var photoW = Math.min(Math.floor(panelW * photoPct), photoMax);
       var photoH = Math.min(Math.floor(photoW * 0.76), bodyH - 8);
       var photoX = panelX + panelW - photoW - 12;
       var photoY = bodyTopY + Math.max(0, Math.floor((bodyH - photoH) / 2));
@@ -432,12 +434,12 @@
         var charsToShow = Math.ceil(memText.length * Math.min(1, contentT * 1.6));
         var displayText = memText.slice(0, charsToShow);
         ctx.globalAlpha = alpha * panelT;
-        ctx.font = "13px Arial, sans-serif";
+        ctx.font = isSmall ? "11px Arial, sans-serif" : "13px Arial, sans-serif";
         ctx.fillStyle = "#3a2b34";
         var words = displayText.split(" ");
         var wline = "";
-        var lineH = 18;
-        var lineY = bodyTopY + 14;
+        var lineH = isSmall ? 14 : 18;
+        var lineY = bodyTopY + (isSmall ? 12 : 18);
         for (var wi = 0; wi < words.length; wi++) {
           var tl = wline + words[wi] + " ";
           if (ctx.measureText(tl).width > textW && wline !== "") {
@@ -1577,7 +1579,7 @@
     var OPEN_END  = 4300;
 
     // Word sequence phase: black screen with centered words only
-    var WORD_BEAT_MS = 750;
+    var WORD_BEAT_MS = 1100;
     var WORDS = ["For.", "My.", "Favorite.", "Disciple.", "Celine Myoung", ":D"];
     if (elapsed >= OPEN_END) {
       ctx.fillStyle = "#000000";
@@ -1723,7 +1725,7 @@
     }
   }
 
-  var SUSPENSE_TOTAL_MS = 7800;
+  var SUSPENSE_TOTAL_MS = 12000;
 
   function startSuspenseAnimation(onDone) {
     stopSuspenseAnimation();

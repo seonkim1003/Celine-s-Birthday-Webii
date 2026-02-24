@@ -417,6 +417,12 @@ body {
   line-height: 1.6;
 }
 
+.memory-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-height: 0;
+}
+
 /* Scene timeline: 3 nodes */
 .scene-timeline {
   display: flex;
@@ -555,6 +561,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0;
+  min-width: 0;
+  overflow-y: auto;
+  max-height: min(75vh, 800px);
 }
 
 .memory-header {
@@ -657,6 +666,8 @@ body {
   max-width: 640px;
   margin-bottom: 8px;
   white-space: pre-line;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Recap grid: 3 cards below the message */
